@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trinity OS</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
+
+    <style>
+        /* General Styling */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    height: 100vh;
+    background: linear-gradient(to right, #2c3e50, #4ca1af); /* Smooth gradient background */
+    color: #f4f4f4;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+/* Window Styling */
+.window {
+    background-color: rgba(19, 19, 19, 0.9);
+    border-radius: 10px;
+    color: white;
+    padding: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+    transition: transform 0.2s ease-in-out; /* Smooth transition for transform effects */
+}
+
+/* Title Bar Improvements */
+.title-bar {
+    cursor: grab;
+    user-select: none;
+    z-index: 10;
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    background-color: #333;
+    padding: 5px 10px; /* Padding for better touch interaction */
+}
+
+.xbox, .maxbox {
+    width: 20px;
+    height: 20px;
+    line-height: 20px;
+    text-align: center;
+    border-radius: 50%;
+    color: white;
+    margin-left: 10px; /* Add space between buttons */
+    transition: background-color 0.3s; /* Transition for hover effect */
+}
+
+.maxbox {
+    background-color: #2ecc71;
+    margin-right: 10px;
+}
+
+.xbox {
+    background-color: #e74c3c;
+}
+
+.xbox:hover, .maxbox:hover {
+    opacity: 0.8;
+}
+
+/* Taskbar and Start Menu Improvements */
+#taskbar {
+    height: 40px;
+    width: 100%;
+    background-color: rgba(51, 51, 51, 0.95);
+    position: fixed;
+    bottom: 0;
+    display: flex;
+    align-items: center;
+    padding: 0 10px; /* Padding on the sides */
+    box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.3);
+}
+
+#start-button {
+    background-color: #3498db;
+    border: none;
+    user-select: none;
+    border-radius: 20px;
+    padding: 5px 15px;
+    transition: background-color 0.3s;
+}
+
+#start-button:hover {
+    background-color: #2980b9;
+}
+
+#start_menu {
+    background-color: #131313;
+    width: 300px;
+    animation-fill-mode: forwards;
+    height: 50vh;
+    user-select: none;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+    position: fixed;
+    bottom: 50px; /* Adjust to raise above the taskbar */
+    left: -300px;
+}
+
+/* Scroll Menu Improvements */
+#scroll_menu {
+    overflow-y: auto;
+    height: calc(100% - 40px); /* Calculate height dynamically */
+    padding: 20px;
+}
+
+#scroll_menu::-webkit-scrollbar {
+    width: 8px;
+}
+
+#scroll_menu::-webkit-scrollbar-thumb {
+    background-color: #555;
+    border-radius: 10px;
+}
+
+#time {
+    margin-left: auto;
+    font-size: 16px;
+}
+
+/* Ensure #time and #start-button have sufficient spacing */
+#time, #start-button {
+    margin: 0 10px;
+}
+
+/* Initial CSS for the menu */
+#start_menu {
+    position: fixed;
+    left: -300px;
+    animation-fill-mode: forwards; /* Ensures properties set in the animation are maintained after it completes */
+}
+
+/* Keyframes for animations */
+@keyframes slide_in_menu {
+    from { left: -300px; }
+    to { left: 10px; }
+}
+
+@keyframes slide_out_menu {
+    from { left: 0; }
+    to { left: -300px; }
+}
+
+
+
+.slide_in_menu {
+    animation: slide_in_menu 0.2s ease-in;
+    animation-fill-mode: forwards;
+}
+
+.slide_out_menu {
+    animation: slide_out_menu 0.2s ease-in;
+    animation-fill-mode: forwards;
+}
+
+#start_menu_buttons {
+    padding: 10px;
+    border-radius: 10px;
+    margin-bottom: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+
+    </style>
+</head>
+<body>
+    <div id="desktop">
+
+
+        <div id="start_menu" style="color: white;">
+            <center>
+                <br>
+                <h2 style="border: solid; border-top: none; border-bottom: none; width: 50%;"> Trinity OS </h2>
+
+                <hr color="white" width="70%"/>
+
+                <div id="scroll_menu">
+                <div id="start_menu_buttons" onclick="xyz()">
+                   <div>
+                        Browser
+                    </div>
+                </div>
+
+                <div id="start_menu_buttons" onclick="launch('https://discord.com/login')" style="background-color: #4224ec;">
+                    <div>
+                         Discord
+                     </div>
+                 </div>
+
+                 <div id="start_menu_buttons" onclick="launch('https://youtube.com')" style="background-color: #db6f6f;">
+                    <div>
+                         Youtube
+                     </div>
+                 </div>
+
+                 <div id="start_menu_buttons" onclick="launch('https://twitter.com')" style="background-color: #54abdd;">
+                    <div>
+                         Twitter
+                     </div>
+                 </div>
+
+                 <div id="start_menu_buttons" onclick="settings()" style="background-color: #434444;">
+                    <div>
+                         Settings
+                     </div>
+                 </div>
+
+
+
+
+                </div>
+
+
+
+            </center>
+        </div>
+        
+
+    </div>
+
+    <div id="taskbar">
+
+
+        <div onclick="open_start()" id="start-button">
+            T
+        </div>
+
+        <div id="time">
+
+        </div>
+
+
+    </div>
+
+    <script>
+
+        document.addEventListener('DOMContentLoaded', function() {
+            setInterval(updateTheme, 1000);
+        });
+
+        function updateTheme() {
+    if (localStorage.getItem("theme") != null) {
+        var theme = localStorage.getItem("theme");
+        // Edit the body's background gradient based on the theme
+        if (theme == "light") {
+            document.body.style.background = "linear-gradient(to right, #b6fbff, #ffffff)"; // light blue to white
+        } else if (theme == "dark") {
+            document.body.style.background = "linear-gradient(to right, #333333, #1a1a2e)"; // dark grey to dark blue
+        } else if (theme == "red") {
+            document.body.style.background = "linear-gradient(to right, #000000, red)"; // black to dark grey
+        } else if (theme == "purple") {
+            document.body.style.background = "linear-gradient(to right, #8e44ad, #c154c1)"; // dark purple to light purple
+        } else if (theme == "blue") {
+            document.body.style.background = "linear-gradient(to right, #2c3e50, #4ca1af)"; // darker blue to lighter blue
+        }
+    }
+}
+
+
+        
+
+        function settings(){
+            createWindow("Settings", "<iframe src='./settings.html' style='height: 100%; width: 100%; border: none;'></iframe>");
+        }
+
+        function xyz(){
+            createWindow("Browser", "<iframe src='./browser' style='height: 100%; width: 100%; border: none;'></iframe>");
+        }
+        let windowCount = 0;
+
+        function maximize() {
+    let self = $(this).closest('.window');
+    // Set the size by adjusting width and height directly
+    self.width($(window).width() - 40);  // Subtract 10px for margin or borders
+    self.height($(window).height() - 100); // Subtract 10px for margin or borders
+    self.css({
+        top: '5px',
+        left: '5px'
+    });
+    $(this).hide().siblings('.minimize').show();
+    
+    adjustIframe(); // Ensure iframes adjust to new dimensions
+}
+
+function minimize() {
+    let self = $(this).closest('.window');
+    // Reset width and height
+    self.width(300); // Set width back to 300px
+    self.height(200); // Set height back to 200px
+    $(this).hide().siblings('.maximize').show();
+
+    adjustIframe(); // Ensure iframes adjust to new dimensions
+}
+
+
+        function createWindow(title, content) {
+            windowCount++;
+            let newWindow = $('<div></div>', {
+                class: 'window',
+                id: 'window' + windowCount
+            }).draggable().resizable();
+
+            let titleBar = $('<div></div>', {
+                class: 'title-bar'
+            }).appendTo(newWindow);
+
+            $('<div>' + title +'</div>').appendTo(titleBar);
+
+            $('<div class="maxbox maximize">[ ]</div>').click(maximize).appendTo(titleBar);
+            $('<div class="maxbox minimize" style="display: none">[-]</div>').click(minimize).appendTo(titleBar);
+            $('<div class="xbox close">X</div>').click(function() {
+                newWindow.remove();
+            }).appendTo(titleBar);
+
+            $('<div>' + content +'</div>').appendTo(newWindow);
+
+            $('#desktop').append(newWindow);
+        }
+
+        function open_start() {
+  var element = $("#start_menu");
+
+  // Toggle the animation based on the current position
+  if (element.css('left') === '-300px') {
+    element.css({
+      animation: 'slide_in_menu 0.5s ease-in forwards'
+    });
+  } else {
+    element.css({
+      animation: 'slide_out_menu 0.5s ease-in forwards',
+      left: '-300px' // Ensure the left position is set for the animation to apply from
+    });
+  }
+}
+
+
+        function launch(url) {
+    
+    let name = url.split('/')[2]; 
+    name = name.startsWith('www.') ? name.substring(4) : name; 
+    name = name.split('.')[0]; 
+    name = name.charAt(0).toUpperCase() + name.slice(1); 
+
+    console.log("Computed Window Title:", name);
+
+    let iframeUrl = "./sandbox.html?url=" + encodeURIComponent(url); // Ensure URL is safely encoded
+
+    let content = "<div style='width: 100%; height: 100%;'><iframe src='" + iframeUrl + "' style='height: 100%; width: 100%; border: none;'></iframe></div>";
+
+    createWindow(name, content);
+   }
+
+   document.addEventListener("DOMContentLoaded", function() {
+    // Access the start menu and configure initial properties
+    const startMenu = document.getElementById("start_menu");
+    startMenu.style.left = "-300px";
+    startMenu.style.position = "fixed";
+
+    // Event listener for the start button
+    document.getElementById("start_button").addEventListener("click", function() {
+        // Toggle the animation on the start menu
+        if (startMenu.style.animation.includes("slide_in_menu 0.5s")) {
+            startMenu.style.animation = "slide_out_menu 0.5s";
+        } else {
+            startMenu.style.animation = "slide_in_menu 0.5s";
+        }
+    });
+
+    // Optionally handle the animationend event if needed to reset animation state
+    startMenu.addEventListener("animationend", function() {
+        // Reset the animation so it can be triggered again
+        startMenu.style.animation = "";
+    });
+});
+
+
+
+        function adjustIframe() {
+    $('.window').each(function() {
+        var $win = $(this); // Get the current window
+        var windowHeight = $win.innerHeight(); // Inner height to exclude padding if needed
+        var windowWidth = $win.innerWidth(); // Inner width to exclude padding if needed
+
+        $win.find('iframe').css({
+            'height': windowHeight  - 60 + 'px', // Set height matching the parent container
+            'width': windowWidth - 50 + 'px'  // Set width matching the parent container
+        });
+    });
+}
+
+// Adjust iframe on window resize
+$(window).resize(adjustIframe);
+
+// Also adjust on document ready
+$(document).ready(adjustIframe);
+
+setInterval(function() {
+    hour = new Date().getHours();
+    minute = new Date().getMinutes();
+    if (minute < 10) {
+        minute = '0' + minute;
+    }
+    type = hour >= 12 ? 'PM' : 'AM';
+    x = hour + ':' + minute + ' ' + type;
+    $('#time').text(x);
+}, 1000);
+
+    </script>
+</body>
+</html>
+
+  

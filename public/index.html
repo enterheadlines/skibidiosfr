@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Trinity OS</title>
+<!-- Metadata -->
+<meta name="description" content="Trinity OS | A unblocker enviroment that has apps/windows that go through a secure proxy.">
+<meta name="author" content="Glitch Network">
+<meta name="keywords" content="Trinity OS">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="boot-wrapper">
+    <div class="boot-screen">
+        <div class="boot-header">
+            <span class="logo">Trinity OS</span>
+            <span class="loading-message">R.I.P Flow-OS</span>
+        </div>
+        <div class="boot-info">
+            <p id="self-x"></p>
+
+        </div>
+        <div class="boot-log">
+           
+            <p>Transferring you to Trinity OS</p>
+
+            
+        
+    </div>
+</div>
+<style>body, html {
+    height: 100%;
+    margin: 0;
+    font-family: 'Courier New', Courier, monospace;
+    background-color: #111;
+    color: #ddd;
+    font-size: 14px;
+}
+
+.boot-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+}
+
+.boot-screen {
+    width: 80%;
+    background-color: #222;
+    padding: 20px;
+    border-radius: 5px;
+}
+
+.boot-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.boot-header .logo {
+    font-weight: bold;
+    color: #fff;
+}
+
+.loading-message {
+    font-style: italic;
+}
+
+.boot-log p {
+    line-height: 1.4;
+}
+
+/* Add any animation or additional styling as needed */
+</style>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        document.getElementById('self-x').innerHTML = "User Agent: " + navigator.userAgent
+    })
+
+    setTimeout(function() {
+        window.location.href = "os.html"
+    }, 5000);
+
+    document
+</script>
+</body>
+</html>

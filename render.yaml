@@ -1,0 +1,12 @@
+services:
+- type: web
+  name: trinity
+  runtime: node
+  repo: https://github.com/Glitch-Network/Trinity-OS
+  branch: main
+  plan: free
+  region: oregon
+  buildCommand: yarn
+  startCommand: npm run start
+  rootDir: ./
+version: "1"
